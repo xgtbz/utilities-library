@@ -1,3 +1,4 @@
+
 let generate arr f =
  for i=0 to Array.length arr do
     arr.(i) <- arr.(i) |> f
@@ -83,8 +84,8 @@ let rec count lst f =
   | [] -> !counter
   | h::t -> if f h then
   begin
-  	counter := !counter + 1;
-  	count t f
+    counter := !counter + 1;
+    count t f
   end
   else count t f
 
@@ -94,3 +95,24 @@ let accumulate lst op =
   | [] -> value
   | h::t -> aux t op (op value h)
  in aux lst op 0
+
+let find_smallest lst =
+ let rec aux lst smallest_value =
+  match lst with
+  | [] -> smallest_value
+  | h::t ->
+  aux t if h < smallest_value
+  then h
+  else smallest_value
+ in aux lst 0
+
+let find_largest lst =
+ let rec aux lst largest_value =
+  match lst with 
+  | [] -> largest_value
+  | h::t ->
+  aux t if h < largest_value 
+  then largest_value
+  else h
+ in aux lst 0
+
