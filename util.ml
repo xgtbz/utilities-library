@@ -63,3 +63,35 @@ let replace lst f value =
   | h::t when h |> f = true -> aux t f value (value::acc)
   | h::t -> aux t f value (h::acc)
  in aux lst f value []
+
+let duplicate lst amount =
+ let rec aux lst acc =
+  match lst with
+  | [] -> List.rev acc
+  | head :: tail ->
+   let rec duplicate_within acc value counter =
+    if counter = amount
+     then acc
+      else duplicate_within (value :: acc) value (counter + 1)
+  in
+   aux tail (duplicate_within acc head 0)
+ in
+ aux lst []
+
+let rec count lst f =
+ let counter = ref 0 in
+  match lst with
+  | [] -> !counter
+  | h::t -> if f h then
+  begin
+  	counter := !counter + 1;
+  	count t f
+  end
+  else count t f
+
+let accumulate lst op =
+ let rec aux lst op value =
+  match lst with
+  | [] -> value
+  | h::t -> aux t op (op value h)
+ in aux lst op 0
