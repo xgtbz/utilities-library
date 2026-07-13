@@ -1,3 +1,4 @@
+
 let generate arr f =
  for i=0 to Array.length arr do
     arr.(i) <- arr.(i) |> f
@@ -149,3 +150,10 @@ let find_last_of lst target =
    end
    else aux t target (counter + 1)
   in aux lst target 0
+
+let reverse lst =
+ let rec aux lst acc =
+  match lst with
+  | [] -> acc
+  | h :: t -> aux t h:: (acc)
+ in aux lst []
