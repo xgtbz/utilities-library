@@ -1,4 +1,3 @@
-
 let generate arr f =
  for i=0 to Array.length arr do
     arr.(i) <- arr.(i) |> f
@@ -127,16 +126,26 @@ let sort lst =
   end
  in aux lst []
 
-let rec find_first_of lst target =
- let idx = ref 0 in
+let find_first_of lst target =
+ let rec aux lst target counter=
   match lst with
   | [] -> -1
   | h::t ->
-  begin
-  	if h=target then !idx
-  	else begin
-  	  idx := (+) !idx 1;
-      find_first_of t target
-  	end
-  end
+  if h=target then
+   counter
+  else aux t target (counter +1)
+ in aux lst target 0
 
+let find_last_of lst target =
+ let idx = ref 0 in
+  let rec aux lst target counter =
+   match lst with
+   | [] -> !idx
+   | h::t ->
+   if h = target then
+   begin
+    idx := counter;
+    aux t target (counter+1);
+   end
+   else aux t target (counter + 1)
+  in aux lst target 0
