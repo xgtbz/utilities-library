@@ -126,3 +126,17 @@ let sort lst =
     aux t (if res > h then h::acc else res::acc)
   end
  in aux lst []
+
+let rec find_first_of lst target =
+ let idx = ref 0 in
+  match lst with
+  | [] -> -1
+  | h::t ->
+  begin
+  	if h=target then !idx
+  	else begin
+  	  idx := (+) !idx 1;
+      find_first_of t target
+  	end
+  end
+
