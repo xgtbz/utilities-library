@@ -1,4 +1,3 @@
-
 let generate arr f =
  for i=0 to Array.length arr do
     arr.(i) <- arr.(i) |> f
