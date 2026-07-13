@@ -101,18 +101,28 @@ let find_smallest lst =
   match lst with
   | [] -> smallest_value
   | h::t ->
-  aux t if h < smallest_value
+  aux t (if h < smallest_value
   then h
-  else smallest_value
+  else smallest_value)
  in aux lst 0
 
 let find_largest lst =
  let rec aux lst largest_value =
-  match lst with 
+  match lst with
   | [] -> largest_value
   | h::t ->
-  aux t if h < largest_value 
+  aux t (if h < largest_value
   then largest_value
-  else h
+  else h)
  in aux lst 0
 
+let sort lst =
+ let rec aux lst acc =
+  match lst with
+  | [] -> List.rev acc
+  | h:: t ->
+  begin
+    let res = t|>find_smallest in
+    aux t (if res > h then h::acc else res::acc)
+  end
+ in aux lst []
